@@ -1,0 +1,23 @@
+YAML
+name: Auto Commit
+on:
+schedule:
+- cron: "0 10 * * *" # Ejecuta todos los días a las 10 AM UTC
+jobs:
+commit:
+runs-on: ubuntu-latest
+permissions:
+contents: write # Agrega permisos de escritura
+steps:
+- name: Checkout repo
+uses: actions/checkout@v4
+- name: Hacer cambios
+run: echo "Actualización automática - $(date)" >> daily_commit.txt
+- name: Congurar Git
+run: |
+git cong --global user.name "luisrru"
+git cong --global user.email "luis_ruiz_97@hotmail.es"
+- name: Commit y push
+run: |
+git add .
+git commit -m "Commit automático - $(date)" || echo "S
